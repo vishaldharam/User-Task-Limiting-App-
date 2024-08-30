@@ -2,6 +2,11 @@ import express from "express";
 import rateLimiter from "./rateLimiter.js";
 import { initializeQueue } from "./queueTask.js";
 import { Redis } from 'ioredis';
+import { config } from "dotenv";
+
+config({
+  path:'./config.env'
+})
 
 const app = express();
 app.use(express.json());
