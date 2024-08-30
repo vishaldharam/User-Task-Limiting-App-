@@ -1,6 +1,9 @@
 import { addToQueue, task } from "./queueTask.js";
 import { redis } from "./server.js";
 
+
+const PER_MIN_RATE_LIMIT = process.env.PER_MIN_RATE_LIMIT 
+
 const rateLimiter = async (userId) => {
 
   // Check the request with same userId is exits or not.
@@ -45,7 +48,7 @@ const rateLimiter = async (userId) => {
   if (now - user.firstRequestTimeStamp > 60000) {
     // In that if the count is greater than the LIMIT_PER_MIN then user will be updated in the redis
     //  with count 1 and firstRequestTimeStamp = Date.now()
-    if (user.count > 20) {
+    if (user.count > PER_MIN_RATE_LIMIT) {
       const updatedUser = {
         userId,
         firstRequestTimeStamp: now,
@@ -72,7 +75,7 @@ const rateLimiter = async (userId) => {
   }
 
   // If the user has  exceeded the LIMIT_PER_MIN it will be added to redis queue
-  if (user.count >= 20) {
+  if (user.count >= PER_MIN_RATE_LIMIT) {
     addToQueue(userId, user.firstRequestTimeStamp, 60000);
     return false;
   }
