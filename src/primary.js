@@ -2,6 +2,12 @@ import cluster from "cluster";
 import os from 'os'
 import {dirname} from "path";
 import { fileURLToPath } from "url";
+import { config } from "dotenv";
+
+config({
+  path:'./config.env'
+})
+
 
 
 
@@ -9,8 +15,7 @@ import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
 const cpuCount = os.cpus().length;
-
-
+const useNoOfReplicas = process.env.NO_OF_REPLICA_IN_CLUSTER > cpuCount ? cpuCount : process.env.NO_OF_REPLICA_IN_CLUSTER
 console.log(`The total no of CPU's is ${cpuCount}`)
 console.log(`Primary pid=${process.pid}`)
 
@@ -21,7 +26,7 @@ cluster.setupPrimary({
 })
 
 //creates two instances/replica set in cluster
-for(let i = 0; i < 2; i++){
+for(let i = 0; i < useNoOfReplicas; i++){
     //initialized them here.
     cluster.fork()
 }
