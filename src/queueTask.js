@@ -28,12 +28,12 @@ const processQueue = async () => {
         redis.lpush(TASK_QUEUE, taskToPerform); // Re-queue the task 
       }
     }
-    await delay(3000); // Here we are setting the delay for how long the queue should pop the next request to process
+    await delay(process.env.DELAY_IN_PROCESSSING_THE_QUEUE || 3000); // Here we are setting the delay for how long the queue should pop the next request to process
   }
 };
 
 
-
+//promise which will resolve after the DELAY_IN_PROCESSSING_THE_QUEUE sec
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 
