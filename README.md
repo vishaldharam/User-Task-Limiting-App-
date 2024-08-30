@@ -52,6 +52,7 @@ NO_OF_REPLICA_IN_CLUSTER=2
 Adjust these values as needed:  
 PORT: The port on which the server will listen.  
 PER_MIN_RATE_LIMIT: Maximum number of tasks allowed per user per minute.  
+PER_SEC_RATE_LIMIT: Maximum number of tasks allowed per user per seconds.  
 DELAY_IN_PROCESSSING_THE_QUEUE: Delay between processing tasks in the queue (in milliseconds).  
 NO_OF_REPLICA_IN_CLUSTER: Number of worker processes (replicas) to spawn.
 
