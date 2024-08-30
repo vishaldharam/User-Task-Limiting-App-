@@ -45,6 +45,7 @@ Create a .env file in the root directory with the following variables:
 
 PORT=3001  
 PER_MIN_RATE_LIMIT=20  
+PER_SEC_RATE_LIMIT=1  
 DELAY_IN_PROCESSSING_THE_QUEUE=3000  
 NO_OF_REPLICA_IN_CLUSTER=2
 
